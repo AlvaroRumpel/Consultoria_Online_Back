@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/AlvaroRumpel/Consultoria_Online#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2",
     "path": "^0.12.7",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.9.0",
+    "sequelize": "^6.12.2",
     "sequelize-cli": "^6.3.0"
   },
   "devDependencies": {

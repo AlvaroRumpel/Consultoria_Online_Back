@@ -7,9 +7,19 @@ class ClientController {
     static async getAllClients (req, res) {
         try {
             const allClients = await clientsService.getAllRecords();
-            return res.status(200).send(allClients);
+            return res.status(200).json(allClients);
         } catch (error) {
-            return res.status(500).send(error.message);
+            return res.status(500).json(error.message);
+        }
+    }
+
+    static async getOneClient (req, res) {
+        const { id } = req.params;
+        try {
+            const client = await clientsService.getOneRecord(id);
+            return res.status(200).json(client);
+        } catch (error) {
+            return res.status(500).json(error.message);
         }
     }
 
@@ -18,9 +28,9 @@ class ClientController {
         console.log(client);
         try {
             const newClient = await clientsService.createRecord(client);
-            return res.status(200).send(newClient);
+            return res.status(200).json(newClient);
         } catch (error) {
-            return res.status(500).send(error.message);
+            return res.status(500).json(error.message);
         }
     }
 
@@ -30,9 +40,9 @@ class ClientController {
         try {
             await clientsService.updateRecordWithId(id, client);
             const clientUpdated = await clientsService.getOneRecord(id);
-            return res.status(200).send(clientUpdated);
+            return res.status(200).json(clientUpdated);
         } catch (error) {
-            return res.status(500).send(error.message);
+            return res.status(500).json(error.message);
         }
     }
 
@@ -42,7 +52,7 @@ class ClientController {
             await clientsService.deleteRecordWithId(id);
             return res.status(200).json(`Client com o Id ${id} foi deletado`);
         } catch (error) {
-            return res.status(500).send(error.message);
+            return res.status(500).json(error.message);
         }
     }
 }

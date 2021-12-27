@@ -1,9 +1,11 @@
-const ClientFormsServices = require("./ClientFormServices");
 const ClientsServices = require("./ClientsServices");
 const InitialFormsServices = require("./InitialFormsServices");
+const ExerciseListServices = require("./ExerciseListServices");
+const ExerciseServices = require("./ExerciseServices");
 
 module.exports = {
     ClientsServices: ClientsServices,
     InitialFormsServices: InitialFormsServices,
-    ClientFormsServices: ClientFormsServices,
+    ExerciseListServices: ExerciseListServices,
+    ExerciseServices: ExerciseServices,
 }

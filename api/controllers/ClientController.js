@@ -25,7 +25,6 @@ class ClientController {
 
     static async createClient (req, res) {
         const client = {...req.body, active: true};
-        console.log(client);
         try {
             const newClient = await clientsService.createRecord(client);
             return res.status(200).json(newClient);

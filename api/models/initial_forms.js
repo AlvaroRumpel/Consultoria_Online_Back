@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Initial_Forms.hasOne(models.Clients_forms, {
-        foreignKey: 'id_initial_form'
+      Initial_Forms.belongsTo(models.Clients, {
+        foreignKey: 'id_Client'
       });
     }
   };

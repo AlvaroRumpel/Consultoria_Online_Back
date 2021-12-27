@@ -23,7 +23,7 @@ class InitialFormsController {
     }
 
     static async createForms (req, res) {
-        const forms = req.body;
+        const forms = {body: req.body, ...req.params};
         try {
             const newForm = await initialFormsServices.createRecord(forms);
             return res.status(200).json(newForm);
@@ -34,9 +34,10 @@ class InitialFormsController {
 
     static async updateForms (req, res) {
         const { id } = req.params;
+        const { clientId } = req.params;
         const newForm = req.body;
         try {
-            await initialFormsServices.updateRecordWithId(id, newForm);
+            await initialFormsServices.updateRecordWithId(id, clientId, newForm);
             const formUpdated = await initialFormsServices.getOneRecord(id);
             return res.status(200).json(formUpdated);
         } catch (error) {

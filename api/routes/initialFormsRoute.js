@@ -7,9 +7,9 @@ router
     .get('/forms', InitialFormsController.getAllForms)
     .get('/forms/:id', InitialFormsController.getOneForm)
 
-    .post('/forms', InitialFormsController.createForms)
+    .post('/forms/:clientId', InitialFormsController.createForms)
 
-    .put('/forms/:id', InitialFormsController.updateForms)
+    .put('/forms/:clientId/:id', InitialFormsController.updateForms)
 
     .delete('/forms/:id', InitialFormsController.deleteForm)
 

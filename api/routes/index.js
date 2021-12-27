@@ -1,13 +1,15 @@
 const bodyParser = require('body-parser');
 const client = require('./clientRoute');
 const initialForms = require('./initialFormsRoute');
-const clientFormRoute = require('./clientFormRoute');
+const exerciseListRoute = require('./exerciseListRoute');
+const exerciseRoute = require('./exerciseRoute');
 
 module.exports = app => {
     app.use(
         bodyParser.json(),
         client,
         initialForms,
-        clientFormRoute
+        exerciseListRoute,
+        exerciseRoute,
     );
 }

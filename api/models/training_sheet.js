@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Training_sheet.belongsTo(models.Clients, {
-        foreignKey: 'id_Client'
+        foreignKey: 'id_client'
       })
       Training_sheet.belongsTo(models.Week_day, {
         foreignKey: 'id_week_day_01'

@@ -18,6 +18,7 @@ class Services {
     }
 
     async updateRecordWithId(id, data) {
+        console.log(data);
         return database[this.modelName].update(data, {
             where: { id: Number(id) },
         });

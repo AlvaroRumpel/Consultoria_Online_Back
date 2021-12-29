@@ -49,13 +49,16 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: [8, 255],
-      }
     },
     active: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    checkedEmail: {
+      type: DataTypes.BOOLEAN,
+    },
+    role: {
+      type: DataTypes.INTEGER,
     }
   }, {
     sequelize,

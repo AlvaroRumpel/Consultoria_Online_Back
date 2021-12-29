@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const TrainingSheetController = require('../controllers/TrainingSheetController');
+const { authMiddlewares, authorizationMiddlewares } = require('../middleware/index');
 
 const router = Router();
 
 router
     .get('/sheet', TrainingSheetController.getAllSheets)
-    .get('/sheet/:id', TrainingSheetController.getOneSheet)
+    .get('/sheet/:id', [authMiddlewares.bearer, authorizationMiddlewares('sheet', 'read')], TrainingSheetController.getOneSheet)
 
     .post('/sheet/:clientId', TrainingSheetController.createSheets)
 

@@ -1,7 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const routes = require('./routes');
 
+require('../redis/blocklistAccessToken');
+require('../redis/allowlistRefreshToken');
+
 const app = express();
+
+const { authStrategies } = require('./middleware/index');
 
 routes(app);
 

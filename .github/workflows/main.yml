@@ -28,3 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Installing dependences
         run: npm install
+        
+      - name: Installing dependences
+        run: npx sequelize-cli db:migrate
+

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Exercise_lists', {
@@ -11,7 +11,7 @@ module.exports = {
       exercise: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
       deletedAt: {
         type: Sequelize.DATE
@@ -24,9 +24,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Exercise_lists');
+    await queryInterface.dropTable('Exercise_lists')
   }
-};
+}

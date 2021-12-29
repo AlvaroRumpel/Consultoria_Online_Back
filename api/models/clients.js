@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Clients extends Model {
     /**
@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       Clients.hasOne(models.Initial_Forms, {
         foreignKey: 'id_Client'
-      });
+      })
       Clients.hasOne(models.Training_sheet, {
         foreignKey: 'id_client'
       })
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        len: [2, 255],
+        len: [2, 255]
       }
     },
     email: {
@@ -48,22 +48,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     active: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     checkedEmail: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN
     },
     role: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
     modelName: 'Clients',
-    paranoid: true,
-  });
-  return Clients;
-};
+    paranoid: true
+  })
+  return Clients
+}

@@ -1,19 +1,19 @@
-require('dotenv').config();
+require('dotenv').config()
 
-const express = require('express');
-const routes = require('./routes');
+const express = require('express')
+const routes = require('./routes')
 
-require('../redis/blocklistAccessToken');
-require('../redis/allowlistRefreshToken');
+require('../redis/blocklistAccessToken')
+require('../redis/allowlistRefreshToken')
 
-const app = express();
+const app = express()
 
-const { authStrategies } = require('./middleware/index');
+const { authStrategies } = require('./middleware/index')
 
-routes(app);
+routes(app)
 
-const port = 3000;
+const port = 3000
 
-app.listen(port, () => console.log(`Server is listening on ${port}`));
+app.listen(port, () => console.log(`Server is listening on ${port}`))
 
-module.exports = app;
+module.exports = app

@@ -1,9 +1,9 @@
-const Services = require('./Services');
+const Services = require('./Services')
 
 class WeekDayService extends Services {
-    constructor () {
-        super('Week_day')
-    }
+  constructor () {
+    super('Week_day')
+  }
 }
 
-module.exports = WeekDayService;
+module.exports = WeekDayService

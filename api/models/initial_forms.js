@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Initial_Forms extends Model {
     /**
@@ -9,18 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       Initial_Forms.belongsTo(models.Clients, {
         foreignKey: 'id_Client'
-      });
+      })
     }
   };
   Initial_Forms.init({
     question_01: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.BOOLEAN
     },
     question_02: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT
     },
     question_03: DataTypes.STRING,
     question_04: DataTypes.TEXT,
@@ -34,6 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Initial_Forms',
     paranoid: true
-  });
-  return Initial_Forms;
-};
+  })
+  return Initial_Forms
+}

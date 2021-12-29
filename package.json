@@ -1,11 +1,13 @@
 {
-  "name": "Consultoria_Online",
+  "name": "Consultoria_Online_Back",
   "version": "1.0.0",
   "description": "",
   "main": "./api/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./api/index.js"
+    "dev": "nodemon ./api/index.js",
+    "lint": "./node_modules/.bin/eslint .",
+    "lint:fix": "./node_modules/.bin/eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -38,6 +40,11 @@
     "sequelize-cli": "^6.3.0"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "nodemon": "^2.0.15"
   }
 }

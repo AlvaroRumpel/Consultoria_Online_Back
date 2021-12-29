@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 const {
   Model
-} = require('sequelize');
+} = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Week_day extends Model {
     /**
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       Week_day.belongsTo(models.Exercise, {
         foreignKey: 'id_exercise_01'
       })
@@ -67,6 +67,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Week_day',
     paranoid: true
-  });
-  return Week_day;
-};
+  })
+  return Week_day
+}

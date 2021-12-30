@@ -60,6 +60,7 @@ class ClientController {
       const address = generateAddress('clients/checkEmail', token)
       const emailCheck = new ChecksEmail(newClient, address)
       emailCheck.sendEmail().catch(console.log)
+      console.log(emailCheck.from + ' ' + emailCheck.to);
 
       return res.status(200).json(newClient)
     } catch (error) {

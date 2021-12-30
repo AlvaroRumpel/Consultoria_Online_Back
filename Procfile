@@ -1,2 +1,2 @@
-web: npm run start
+web: node ./api/index.js
 release: npx sequelize-cli db:migrate

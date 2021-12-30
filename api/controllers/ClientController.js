@@ -60,7 +60,7 @@ class ClientController {
       const address = generateAddress('clients/checkEmail', token)
       const emailCheck = new ChecksEmail(newClient, address)
       emailCheck.sendEmail().catch(console.log)
-      console.log(emailCheck.from + ' ' + emailCheck.to);
+      console.log(emailCheck.from + ' ' + emailCheck.to)
 
       return res.status(200).json(newClient)
     } catch (error) {
@@ -73,7 +73,7 @@ class ClientController {
     try {
       await clientsService.modifyCheckedEmail(id)
       const clientChecked = await clientsService.getOneRecord(id)
-      return res.status(200).json(clientChecked)
+      return res.status(200).send(`${clientChecked.email}`)
     } catch (error) {
       return res.status(500).json(error.message)
     }

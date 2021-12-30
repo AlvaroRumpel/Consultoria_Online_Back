@@ -44,7 +44,14 @@ class ChecksEmail extends Email {
     this.to = user.email
     this.subject = 'Vericação de E-mail',
     this.text = `Olá ${user.name}! Verifique seu e-mail aqui: ${address}`,
-    this.html = `<h1>Olá ${user.name}!</h1><p>Verifique seu e-mail aqui: <a href="${address}">${address}</a></p>`
+    this.html = `<header style="background:#1d1f36; display: flex; padding: 0.5em; justify-content: center">
+    <h1 style="text-align: center; color: #fff; font-family: Verdana, Geneva, Tahoma, sans-serif;">Confirmação de email</h1>
+</header>
+<main style="background:#dbdbdb; display: flex; padding: 0.5em; align-items: center; flex-direction: column; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+    <h2>Olá ${user.name}, tudo bem?</h2>
+    <p>Acesse o <a href="${address}" style="font-weight: bold">link</a> para confirmar seu email</p>
+    <a href="${address}">${address}</a>
+</main>`
   }
 }
 

@@ -31,7 +31,7 @@ class Email {
 
     const info = await transporter.sendMail(this)
 
-    if (process.env.NODE_EN !== 'production') {
+    if (process.env.NODE_ENV !== 'production') {
       console.log('URL: ' + nodemailer.getTestMessageUrl(info))
     }
   };
@@ -40,7 +40,7 @@ class Email {
 class ChecksEmail extends Email {
   constructor (user, address) {
     super()
-    this.from = '"Consultoria Esportiva Online" <noreply@consultoriaesportiva.com.br>'
+    this.from = '"Confirmação" <confirmacao.acr@gmail.com>'
     this.to = user.email
     this.subject = 'Vericação de E-mail',
     this.text = `Olá ${user.name}! Verifique seu e-mail aqui: ${address}`,
@@ -58,7 +58,7 @@ class ChecksEmail extends Email {
 class ForgotPassEmail extends Email {
   constructor (user, address) {
     super()
-    this.from = '"Consultoria Esportiva Online" <noreply@consultoriaesportiva.com.br>'
+    this.from = '"Confirmação" <confirmacao.acr@gmail.com>'
     this.to = user.email
     this.subject = 'Alteração de senha',
     this.text = `Olá ${user.name}! Altere sua senha aqui: ${address}`,

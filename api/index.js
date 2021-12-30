@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const routes = require('./routes')
 
+require('../redis/redis')
 require('../redis/blocklistAccessToken')
 require('../redis/allowlistRefreshToken')
 

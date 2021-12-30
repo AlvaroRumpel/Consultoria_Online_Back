@@ -7,6 +7,7 @@ const router = Router()
 router
   .get('/clients', [authMiddlewares.bearer, authorizationMiddlewares('clients', 'read')], ClientController.getAllClients)
   .get('/clients/:id', ClientController.getOneClient)
+  .get('/clients/checkEmail/:token', authMiddlewares.checkEmail, ClientController.checkEmail)
 
   .post('/clients', ClientController.createClient)
   .post('/clients/login', authMiddlewares.local, ClientController.login)
@@ -14,7 +15,6 @@ router
   .post('/clients/updateToken', authMiddlewares.refresh, ClientController.login)
   .post('/clients/esqueciminhasenha', ClientController.forgotPassword)
 
-  .put('/clients/checkEmail/:token', authMiddlewares.checkEmail, ClientController.checkEmail)
   .put('/clients/forgotPassword/:token', authMiddlewares.forgotEmail, ClientController.forgotPasswordRestore)
   .put('/clients/:id', ClientController.updateClient)
 

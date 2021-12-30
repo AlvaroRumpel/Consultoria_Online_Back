@@ -1,6 +1,11 @@
 const redis = require('redis')
 
-const blocklist = redis.createClient(process.env.REDIS_URL, {prefix: 'blocklist-access-token:' })
+if(process.env.NODE_ENV !== 'production'){
+  var blocklist = redis.createClient({ prefix: 'blocklist-access-token:' })
+}else{
+  const redisURL = new URL(process.env.REDIS_URL)
+  var blocklist = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true, prefix: 'blocklist-access-token:' })
+}
 const listManipulation = require('./listManipulation')
 const blocklistManipulate = listManipulation(blocklist)
 

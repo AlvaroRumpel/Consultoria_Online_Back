@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+const http = require('http')
 const express = require('express')
 const routes = require('./routes')
 
@@ -7,6 +8,8 @@ require('../redis/blocklistAccessToken')
 require('../redis/allowlistRefreshToken')
 
 const app = express()
+
+const server = http.createServer(app)
 
 const { authStrategies } = require('./middleware/index')
 

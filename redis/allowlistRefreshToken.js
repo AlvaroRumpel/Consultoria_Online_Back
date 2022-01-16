@@ -6,12 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
     prefix: 'allowlist-refresh-token:'
   })
 } else {
-  const redisURL = new URL(process.env.REDIS_URL)
-  var allowlist = redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD
-  })
+  // const redisURL = new URL(process.env.REDIS_URL)
+  var allowlist = redis.createClient({ url: process.env.REDIS_URL })
 }
 
 module.exports = listManipulation(allowlist)

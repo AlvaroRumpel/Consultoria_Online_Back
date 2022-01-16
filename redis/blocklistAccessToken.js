@@ -7,11 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   const redisURL = new URL(process.env.REDIS_URL)
   var blocklist = redis.createClient({
-    host: redisURL.hostname,
-    port: redisURL.port,
-    password: redisURL.password,
-    no_ready_check: true,
-    prefix: 'blocklist-access-token:'
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+    password: process.env.REDIS_PASSWORD
   })
 }
 const listManipulation = require('./listManipulation')

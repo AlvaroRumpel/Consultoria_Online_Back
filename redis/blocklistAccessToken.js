@@ -1,16 +1,26 @@
 const redis = require('redis')
 
 if (process.env.NODE_ENV !== 'production') {
-  var blocklist = redis.createClient({ prefix: 'blocklist-access-token:' })
+  var blocklist = redis.createClient({
+    prefix: 'blocklist-access-token:'
+  })
 } else {
   const redisURL = new URL(process.env.REDIS_URL)
-  var blocklist = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true, prefix: 'blocklist-access-token:' })
+  var blocklist = redis.createClient({
+    host: redisURL.hostname,
+    port: redisURL.port,
+    password: redisURL.password,
+    no_ready_check: true,
+    prefix: 'blocklist-access-token:'
+  })
 }
 const listManipulation = require('./listManipulation')
 const blocklistManipulate = listManipulation(blocklist)
 
 const jwt = require('jsonwebtoken')
-const { createHash } = require('crypto')
+const {
+  createHash
+} = require('crypto')
 
 function generateTokenHash (token) {
   return createHash('sha256')

@@ -1,2 +1,2 @@
-worker:node ./api/index.js
-release:npx sequelize-cli db:migrate
+worker: node ./api/index.js
+release: npx sequelize-cli db:migrate

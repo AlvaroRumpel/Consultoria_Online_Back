@@ -12,7 +12,7 @@ function generateAddress (route, token) {
 class ClientController {
   static async login (req, res) {
     try {
-      const accessToken = tokens.access.create(req.user.id)
+      const accessToken = await tokens.access.create(req.user.id)
       const refreshToken = await tokens.refresh.create(req.user.id)
       res.set('Authorization', accessToken)
       res.status(200).json({ refreshToken: refreshToken })

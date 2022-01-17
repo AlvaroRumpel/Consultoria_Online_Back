@@ -4,6 +4,7 @@ const ExerciseListServices = require('./ExerciseListServices')
 const ExerciseServices = require('./ExerciseServices')
 const WeekDayServices = require('./WeekDayServices')
 const TrainingSheetServices = require('./TrainingSheetServices')
+const RefreshTokenService = require('./RefreshTokenServices')
 
 module.exports = {
   ClientsServices: ClientsServices,
@@ -11,5 +12,6 @@ module.exports = {
   ExerciseListServices: ExerciseListServices,
   ExerciseServices: ExerciseServices,
   WeekDayServices: WeekDayServices,
-  TrainingSheetServices: TrainingSheetServices
+  TrainingSheetServices: TrainingSheetServices,
+  RefreshTokenService: RefreshTokenService
 }

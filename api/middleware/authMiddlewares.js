@@ -26,11 +26,11 @@ module.exports = {
       })(req, res, next)
   },
 
-  bearer (req, res, next) {
+  async bearer (req, res, next) {
     passport.authenticate(
       'bearer',
       { session: false },
-      (error, user, info) => {
+      async (error, user, info) => {
         if (error && error.name === 'JsonWebTokenError') {
           return res.status(401).json(error.message)
         }
@@ -47,6 +47,7 @@ module.exports = {
           return res.status(401).json()
         }
 
+        req.id = await tokens.access.check(info.token)
         req.token = info.token
         req.user = user
         return next()
@@ -73,6 +74,7 @@ module.exports = {
     try {
       const { token } = req.params
       const id = await tokens.checkEmail.check(token)
+      await tokens.checkEmail.delete(token)
       const user = await client.getOneRecord(id)
       req.user = user
       next()
@@ -93,6 +95,7 @@ module.exports = {
     try {
       const { token } = req.params
       const id = await tokens.forgotPassEmail.check(token)
+      await tokens.forgotPassEmail.delete(token)
       const user = await client.getOneRecord(id)
       req.user = user
       next()

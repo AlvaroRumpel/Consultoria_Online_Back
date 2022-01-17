@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Clients.hasOne(models.Training_sheet, {
         foreignKey: 'id_client'
       })
+      Clients.hasOne(models.tokens, {
+        foreignKey: 'id_Client'
+      })
     }
   };
   Clients.init({

@@ -1,34 +1,21 @@
 const jwt = require('jsonwebtoken')
-const allowlistRefreshToken = require('../../redis/allowlistRefreshToken')
-const blocklistAccessToken = require('../../redis/blocklistAccessToken')
-const resetList = require('../../redis/passwordReset')
 
-const crypto = require('crypto')
-const moment = require('moment')
+const RefreshTokenService = require('../services/RefreshTokenServices')
 
-function generateJWT (id, [qtdTime, unitTime]) {
+const refreshTokenService = new RefreshTokenService()
+
+async function generateJWT (id, [qtdTime, unitTime], key, type) {
   const payload = { id }
-
-  const token = jwt.sign(payload, process.env.CHAVE_JWT, { expiresIn: qtdTime + unitTime })
+  const token = jwt.sign(payload, key, { expiresIn: qtdTime + unitTime })
+  await refreshTokenService.createRecord({ id_Client: Number(id), key: token, valid: true, type: type })
   return token
 }
 
-async function generateOpaqueToken (id, [qtdTime, unitTime], allowlist) {
-  const opaqueToken = crypto.randomBytes(24).toString('hex')
-  const expiresDate = moment().add(qtdTime, unitTime).unix()
-  await allowlist.add(opaqueToken, id, expiresDate)
-  return opaqueToken
-}
-
-async function checkOpaqueToken (token, name, allowlist) {
+async function checkToken (token, name, type) {
   checkSendToken(token, name)
-  const id = await allowlist.findValue(token)
+  const id = await refreshTokenService.getKey(token, type)
   checkValidToken(id, name)
   return id
-}
-
-async function invalidateOpaqueToken (token, allowlist) {
-  await allowlist.delete(token)
 }
 
 function checkValidToken (id, name) {
@@ -43,73 +30,82 @@ function checkSendToken (token, name) {
   }
 }
 
-async function checkTokenBlocklist (token, name, blocklist) {
-  const tokenBlocklist = await blocklist.containToken(token)
-  if (tokenBlocklist) {
+async function checkTokenJwt (token, name, key, type) {
+  const Client = await refreshTokenService.getKeyInvalid(token, type)
+  if (Client) {
     throw new jwt.JsonWebTokenError(`${name} token Invalido por logout`)
   }
-}
-
-async function checkTokenJwt (token, name, blocklist) {
-  if (blocklist) {
-    await checkTokenBlocklist(token, name, blocklist)
-  }
-  const { id } = jwt.verify(token, process.env.CHAVE_JWT)
+  const { id } = jwt.verify(token, key)
   return id
 }
 
-async function invalidateTokenJwt (token, blocklist) {
-  return await blocklist.add(token)
+async function invalidateTokenJwt (token, type) {
+  return await refreshTokenService.invalidateKey(token, type)
+}
+
+async function deleteTokenJwt (token, type) {
+  return await refreshTokenService.deleteKey(token, type)
 }
 
 module.exports = {
   access: {
     expires: [20, 'm'],
-    list: blocklistAccessToken,
+    key: process.env.CHAVE_JWT,
     name: 'Access',
+    type: 1,
     create (id) {
-      return generateJWT(id, this.expires)
+      return generateJWT(id, this.expires, this.key, this.type)
     },
     check (token) {
-      return checkTokenJwt(token, this.name, this.list)
+      return checkTokenJwt(token, this.name, this.key, this.type)
     },
     invalidate (token) {
-      return invalidateTokenJwt(token, this.list)
+      return invalidateTokenJwt(token, this.type)
     }
   },
   refresh: {
-    list: allowlistRefreshToken,
-    expires: [5, 'd'],
+    expires: [1, 'd'],
+    key: process.env.REFRESH_JWT,
     name: 'Refresh',
+    type: 2,
     create (id) {
-      return generateOpaqueToken(id, this.expires, this.list)
+      return generateJWT(id, this.expires, this.key, this.type)
     },
     check (token) {
-      return checkOpaqueToken(token, this.name, this.list)
+      return checkToken(token, this.name, this.type)
     },
     invalidate (token) {
-      return invalidateOpaqueToken(token, this.list)
+      return invalidateTokenJwt(token, this.type)
     }
   },
   checkEmail: {
     name: 'token de verficação de email',
+    key: process.env.CHAVE_JWT,
     expires: [1, 'h'],
+    type: 3,
     create (id) {
-      return generateJWT(id, this.expires)
+      return generateJWT(id, this.expires, this.key, this.type)
     },
     check (token) {
-      return checkTokenJwt(token, this.name)
+      return checkTokenJwt(token, this.name, this.type)
+    },
+    delete (token) {
+      return deleteTokenJwt(token, this.name, this.type)
     }
   },
   forgotPassEmail: {
     name: 'token de alteração de senha',
+    key: process.env.FORGOTPASS_JWT,
     expires: [30, 'm'],
-    list: resetList,
+    type: 4,
     create (id) {
-      return generateOpaqueToken(id, this.expires, this.list)
+      return generateJWT(id, this.expires, this.key, this.type)
     },
     check (token) {
-      return checkOpaqueToken(token, this.name, this.list)
+      return checkToken(token, this.name, this.type)
+    },
+    delete (token) {
+      return deleteTokenJwt(token, this.type)
     }
   }
 }

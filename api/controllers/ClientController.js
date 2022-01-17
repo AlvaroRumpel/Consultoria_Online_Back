@@ -56,7 +56,7 @@ class ClientController {
     try {
       const newClient = await clientsService.createRecord(client)
 
-      const token = tokens.checkEmail.create(newClient.id)
+      const token = await tokens.checkEmail.create(newClient.id)
       const address = generateAddress('clients/checkEmail', token)
       const emailCheck = new ChecksEmail(newClient, address)
       emailCheck.sendEmail().catch(console.log)

@@ -87,10 +87,10 @@ module.exports = {
       return generateJWT(id, this.expires, this.key, this.type)
     },
     check (token) {
-      return checkTokenJwt(token, this.name, this.type)
+      return checkTokenJwt(token, this.name, this.key, this.type)
     },
     delete (token) {
-      return deleteTokenJwt(token, this.name, this.type)
+      return deleteTokenJwt(token, this.type)
     }
   },
   forgotPassEmail: {

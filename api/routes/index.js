@@ -7,10 +7,14 @@ const exerciseRoute = require('./exerciseRoute')
 const weekDayRoute = require('./weekDayRoute')
 const trainingSheetRoute = require('./trainingSheetRoute')
 
-module.exports = app => {
+const corsOptions = {
+  exposedHeaders: 'Authorization'
+}
+
+module.exports = (app) => {
   app.use(
     bodyParser.json(),
-    cors(),
+    cors(corsOptions),
     client,
     initialForms,
     exerciseListRoute,

@@ -11,9 +11,9 @@ class TrainingSheetServices extends Services {
   }
 
   async createRecord (data) {
-    const body = { ...data.body, id_client: data.clientId }
+    const body = { ...data.body, id_client: data.id_client }
     try {
-      await this.checkClientId(data.clientId)
+      await this.checkClientId(data.id_client)
       return await database.Training_sheet.create(body)
     } catch (error) {
       return error.message

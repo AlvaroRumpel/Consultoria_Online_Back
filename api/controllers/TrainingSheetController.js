@@ -23,7 +23,7 @@ class TrainingSheetController {
   }
 
   static async createSheets (req, res) {
-    const sheets = { body: req.body, ...req.params }
+    const sheets = { body: req.body, id_client: req.user.id }
     try {
       const newSheet = await trainingSheetServices.createRecord(sheets)
       return res.status(200).json(newSheet)

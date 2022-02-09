@@ -8,9 +8,9 @@ router
   .get('/sheet', TrainingSheetController.getAllSheets)
   .get('/sheet/:id', [authMiddlewares.bearer, authorizationMiddlewares('sheet', 'read')], TrainingSheetController.getOneSheet)
 
-  .post('/sheet/:clientId', TrainingSheetController.createSheets)
+  .post('/sheet/', authMiddlewares.bearer, TrainingSheetController.createSheets)
 
-  .put('/sheet/:clientId/:id', TrainingSheetController.updateSheets)
+  .put('/sheet/:id', TrainingSheetController.updateSheets)
 
   .delete('/sheet/:id', TrainingSheetController.deleteSheet)
 
